@@ -12,7 +12,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@types/ws": "^8.5.12"
+    "@types/ws": "^8.5.12",
+    "ws": "^8.18.0"
   },
   "devDependencies": {
     "typescript": "^5.0.0"
