@@ -1,6 +1,6 @@
 import { WebSocket, WebSocketServer } from 'ws';
 
-const wss = new WebSocketServer({ host: "0.0.0.0", port: 8080 });
+const wss = new WebSocketServer({ port: 8080 });
 
 let senderSocket: null | WebSocket = null;
 let receiverSocket: null | WebSocket = null;

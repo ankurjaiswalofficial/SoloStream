@@ -30,7 +30,7 @@ const Sender = () => {
     // const [screenVideoStreamAllowed, setScreenVideoStreamAllowed] = useState<boolean>(false);
 
     useEffect(() => {
-        const socket = new WebSocket('ws://192.168.3.68:8080');
+        const socket = new WebSocket(process.env.WSS_URL!);
         setSocket(socket);
         socket.onopen = () => {
             socket.send(JSON.stringify({
