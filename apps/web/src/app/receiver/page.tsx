@@ -20,20 +20,46 @@ const Receiver = () => {
     const socketRef = useRef<WebSocket | null>(null);
     const mediaTracks = useRef<MediaStream | null>(null);
     const [active, setActive] = useState<boolean>(false);
+    const [rejoin, setRejoin] = useState<boolean>(false);
 
     useEffect(() => {
-        const socket = new WebSocket('ws://localhost:8080');
+        const socket = new WebSocket('ws://192.168.3.68:8080');
         socket.onopen = () => {
             socket.send(JSON.stringify({
                 type: 'receiver'
             }));
         }
         socketRef.current = socket;
-        startReceiving(socket);
+        startReceiving();
+        socket.onmessage = async (event) => {
+            const message = JSON.parse(event.data);
+            if (message.type === 'createOffer') {
+                if (rejoin) return;
+                await pcRef.current?.setRemoteDescription(message.sdp);
+                const answer = await pcRef.current?.createAnswer();
+                await pcRef.current?.setLocalDescription(answer);
+                socket.send(JSON.stringify({
+                    type: 'createAnswer',
+                    sdp: answer
+                }));
+            } else if (message.type === 'iceCandidate') {
+                if (rejoin) return;
+                pcRef.current?.addIceCandidate(message.candidate);
+            } else if (message.type === "close") {
+                if (rejoin) return;
+                if (!videoRef.current) { throw new Error("Video Element Missing") }
+                videoRef.current.srcObject = null;
+                console.log("Video Source set to null !!!");
+                pcRef.current?.close();
+                pcRef.current = null;
+                setRejoin(true);
+                setActive(false);
+            }
+        }
     }, []);
 
-    function startReceiving(socket: WebSocket) {
-
+    function startReceiving() {
+        setRejoin(false);
         const pc = new RTCPeerConnection();
         pc.ontrack = async (event) => {
             if (!videoRef.current) { throw new Error("Video Element Missing") }
@@ -42,26 +68,11 @@ const Receiver = () => {
             mediaTracks.current = stream;
         }
 
-        socket.onmessage = async (event) => {
-            const message = JSON.parse(event.data);
-            if (message.type === 'createOffer') {
-                await pc.setRemoteDescription(message.sdp);
-                const answer = await pc.createAnswer();
-                await pc.setLocalDescription(answer);
-                socket.send(JSON.stringify({
-                    type: 'createAnswer',
-                    sdp: answer
-                }));
-            } else if (message.type === 'iceCandidate') {
-                pc.addIceCandidate(message.candidate);
-            } else if (message.type === "close") {
-                if (!videoRef.current) { throw new Error("Video Element Missing") }
-                videoRef.current.srcObject = null;
-                console.log("Video Source set to null !!!");
-                setActive(false);
-            }
-        }
         pcRef.current = pc;
+    }
+
+    const handleReJoin = () => {
+        startReceiving();
     }
 
     const handlePC = () => {
@@ -82,10 +93,11 @@ const Receiver = () => {
                 <Separator />
                 <CardContent className="flex flex-col items-center justify-center gap-2 p-2">
                     <div className="flex flex-row items-center gap-4 w-full px-2">
-                        <Button className="flex-grow" onClick={handlePC}>Join Stream</Button>
+                        {rejoin ? <Button className="flex-grow" onClick={handleReJoin}>Rejoin Stream</Button>
+                            : <Button className="flex-grow" onClick={handlePC}>Join Stream</Button>}
                         <Button className="flex-grow" disabled onClick={() => { }}>Leave Stream</Button>
                     </div>
-                    <video className={cn("rounded-md", { "hidden": !active })} ref={videoRef} muted autoPlay></video>
+                    <video className={cn("rounded-md", { "hidden": !active })} ref={videoRef} autoPlay></video>
                     <div className={cn("flex items-center justify-center w-full aspect-video rounded-md border", { "hidden": active })}>
                         <VideoIcon className="size-12" />
                     </div>

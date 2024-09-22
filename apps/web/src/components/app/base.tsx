@@ -4,10 +4,10 @@ import { ModeToggle } from '../theme/toggler'
 const Base = ({ children }: Readonly<{ children: React.ReactNode }>) => {
     return (
         <div
-            className='relative w-full h-full bg-gradient-to-br bg-muted-foreground dark:bg-neutral-600'
+            className='relative w-full h-full min-h-screen flex items-center '
         >
             {children}
-            <div className="absolute top-4 right-4">
+            <div className="fixed top-4 right-4">
                 <ModeToggle />
             </div>
         </div>

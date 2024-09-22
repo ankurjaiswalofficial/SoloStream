@@ -3,6 +3,7 @@ import "./globals.css";
 import { Inter } from "next/font/google";
 import BaseProvider from "@/providers/base-provider";
 import Base from "@/components/app/base";
+import { Toaster } from "@/components/ui/toaster";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,11 +20,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${inter.className} w-screen h-screen`}
+        className={`${inter.className}`}
       >
         <BaseProvider>
           <Base>
             {children}
+            <Toaster />
           </Base>
         </BaseProvider>
       </body>
