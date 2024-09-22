@@ -30,7 +30,7 @@ const Sender = () => {
     // const [screenVideoStreamAllowed, setScreenVideoStreamAllowed] = useState<boolean>(false);
 
     useEffect(() => {
-        const socket = new WebSocket(process.env.WSS_URL!);
+        const socket = new WebSocket("wss://solostream-ankur-jaiswal-.glitch.me/");
         setSocket(socket);
         socket.onopen = () => {
             socket.send(JSON.stringify({

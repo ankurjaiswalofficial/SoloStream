@@ -23,7 +23,7 @@ const Receiver = () => {
     const [rejoin, setRejoin] = useState<boolean>(false);
 
     useEffect(() => {
-        const socket = new WebSocket(process.env.WSS_URL!);
+        const socket = new WebSocket("wss://solostream-ankur-jaiswal-.glitch.me/");
         socket.onopen = () => {
             socket.send(JSON.stringify({
                 type: 'receiver'
