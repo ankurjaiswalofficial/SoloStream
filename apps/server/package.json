@@ -2,13 +2,19 @@
   "name": "server",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
+    "build": "tsc",
+    "dev": "npm run build && node dist/index.js",
+    "devNet": "npm run build && node dist/index.js -H 0.0.0.0",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@types/ws": "^8.5.12"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0"
   }
 }
