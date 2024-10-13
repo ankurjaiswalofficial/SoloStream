@@ -23,7 +23,7 @@ export default function RootLayout({
       <body
         className={`${inter.className}`}
       >
-        <Analytics measurementId={process.env.GOOGLE_MEASUREMENT_ID!}/>
+        <Analytics measurementId={"G-4ZJL6GP16E"}/>
         <BaseProvider>
           <Base>
             {children}
