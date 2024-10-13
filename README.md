@@ -1,81 +1,71 @@
-# Turborepo starter
+SoloStream
+==========
 
-This is an official starter Turborepo.
+A simple RTCPeerConnection application designed for remote desktop assistance with one sender and one receiver, providing a real-time video streaming experience similar to remote desktop sharing.
 
-## Using this example
+Deployment
+----------
 
-Run the following command:
+Access the deployed application here: [SoloStream Web](https://solo-stream-web.vercel.app/)
 
-```sh
-npx create-turbo@latest
-```
+Tech Stack
+----------
 
-## What's inside?
+**Frontend**:
 
-This Turborepo includes the following packages/apps:
+*   Next.js (v14.2.13)
+*   React (v18)
+*   Tailwind CSS (v3.4.1) for styling
+*   Radix UI components for enhanced accessibility
+*   TypeScript for type safety
 
-### Apps and Packages
+**Backend/WebSocket**:
 
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
+*   `ws` library for WebSocket communication
 
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
+**Utilities**:
 
-### Utilities
+*   Tailwind CSS and associated plugins (`tailwind-merge`, `tailwindcss-animate`)
+*   Class Variance Authority (CVA) for consistent styling
+*   ESLint and Prettier for code quality and formatting
+*   Turbo for optimized builds
 
-This Turborepo has some additional tools already setup for you:
+Installation
+------------
 
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
+1.  Clone the repository:
+    
+    `git clone [https://github.com/ankurjaiswalofficial/SoloStream.git](https://github.com/ankurjaiswalofficial/SoloStream.git) cd SoloStream`
+    
+2.  Install dependencies:
+    
+    `npm install`
+    
+3.  Run the development server:
+    
+    `npm run dev`
+    
+    Open [http://localhost:3000/](http://localhost:3000/) to view it in your browser.
+    
 
-### Build
+Features
+--------
 
-To build all apps and packages, run the following command:
+*   **Real-Time Communication**: Utilize RTCPeerConnection for live video and audio streaming between a sender and receiver.
+*   **WebSocket Integration**: Establishes a secure and fast connection using the `ws` library.
+*   **Responsive UI**: Built with Tailwind CSS for a responsive and accessible user interface.
+*   **Dark Mode Support**: Integrated with `next-themes` for seamless theme switching.
 
-```
-cd my-turborepo
-pnpm build
-```
+Scripts
+-------
 
-### Develop
+*   `npm run dev`: Starts the development server.
+*   `npm run build`: Builds the application for production.
+*   `npm run start`: Starts the production server.
+*   `npm run lint`: Runs ESLint for code quality checks.
+*   `npm run format`: Formats the codebase using Prettier.
 
-To develop all apps and packages, run the following command:
+License
+-------
 
-```
-cd my-turborepo
-pnpm dev
-```
-
-### Remote Caching
-
-Turborepo can use a technique known as [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
-
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup), then enter the following commands:
-
-```
-cd my-turborepo
-npx turbo login
-```
-
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
-
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
-
-```
-npx turbo link
-```
-
-## Useful Links
-
-Learn more about the power of Turborepo:
-
-- [Tasks](https://turbo.build/repo/docs/core-concepts/monorepos/running-tasks)
-- [Caching](https://turbo.build/repo/docs/core-concepts/caching)
-- [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching)
-- [Filtering](https://turbo.build/repo/docs/core-concepts/monorepos/filtering)
-- [Configuration Options](https://turbo.build/repo/docs/reference/configuration)
-- [CLI Usage](https://turbo.build/repo/docs/reference/command-line-reference)
+This project is licensed under the MIT License.
