@@ -4,6 +4,7 @@ import { Inter } from "next/font/google";
 import BaseProvider from "@/providers/base-provider";
 import Base from "@/components/app/base";
 import { Toaster } from "@/components/ui/toaster";
+import Analytics from "@/components/analytics";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,6 +23,7 @@ export default function RootLayout({
       <body
         className={`${inter.className}`}
       >
+        <Analytics measurementId={process.env.GOOGLE_MEASUREMENT_ID!}/>
         <BaseProvider>
           <Base>
             {children}
